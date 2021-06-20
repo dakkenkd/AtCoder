@@ -1,0 +1,8 @@
+n = int(input())
+
+if 206 > int(n*1.08):
+  print("Yay!")
+elif 206 == int(n*1.08):
+  print("so-so")
+else:
+  print(":(")
