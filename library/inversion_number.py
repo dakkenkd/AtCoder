@@ -16,6 +16,7 @@ def sum(x):
 
 ans = 0
 
+# 転倒数
 for i in range(n):
     ans += i - sum(lst[i])
     add(lst[i], 1)
