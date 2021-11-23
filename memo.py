@@ -1,21 +1,45 @@
-n, w = map(int, input().split())
-a = [int(i) for i in input().split()]
+q = int(input())
+n = 2**20
+lst = [ list(map(int, input().split())) for _ in range(q)]
+num = 1 << (2**20-1).bit_length()
+seg_tree = [-1] * (num * 2)
+segfunc = min
 
-# DP
-dp = [[False] * (w + 1) for _ in range(n+1)]
-dp[0][0] = True
+def update(k, x):
+    k += num
+    seg_tree[k] = x
+    while k > 1:
+        seg_tree[k >> 1] = segfunc(seg_tree[k], seg_tree[k^1])
+        k >>= 1
 
-for i in range(n):
-    for j in range(w+1):
-        # a[i]を選ばない場合
-        if dp[i][j] == True:
-            dp[i+1][j] = True
-        
-        # a[i]を選ぶ場合
-        if j >= a[i] and dp[i][j-a[i]] == True:
-            dp[i+1][j] = True
+def find(idx, x):
+    if seg_tree[idx + num] == -1:
+        update(idx, x)
+        return
+    # -1になるまで登り続ける
+    idx += num
+    while True:
+        if seg_tree[(idx + 1) >> 1] == -1:
+            idx = (idx + 1) >> 1
+            break
+        idx = (idx + 1) >> 1
+        if idx == 1:
+            break
+    
+    # -1が来るまで下り続ける
+    while idx * 2 < 2097152:
+        if seg_tree[idx * 2] == -1:
+            idx *= 2
+        else:
+            idx = idx*2 + 1
+    update(idx-num, x)
 
-if dp[n][w] == True:
-    print("Yes")
-else:
-    print("N")
+for d in lst:
+    t, x = d[0], d[1]
+    if t == 1:
+        if seg_tree[1] >= 0:
+            continue
+        else:
+            find(x % n, x)
+    else:
+        print(seg_tree[x%n + num])
