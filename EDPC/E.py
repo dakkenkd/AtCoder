@@ -18,5 +18,3 @@ for i in range(100001):
         ans = i
 
 print(ans)
-
-
