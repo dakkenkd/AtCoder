@@ -1,6 +1,5 @@
 n, m = map(int, input().split())
 lst = [*map(int, input().split())]
-
 def ng_ok(limit):
     cnt = [0] * (10**8)
     s = set()
@@ -12,6 +11,7 @@ def ng_ok(limit):
             if a < limit:
                 j.add(a)
         cnt[a] += 1
+    print(j)
 
     if len(j) == limit:
         return True
@@ -19,6 +19,7 @@ def ng_ok(limit):
     for i in range(m, n):
         l = lst[i-m]
         r = lst[i]
+        print(j)
         if cnt[l] == 1:
             s.remove(l)
             if l in j:
@@ -34,18 +35,4 @@ def ng_ok(limit):
 
     return False
 
-l, r = 0, 10**20
-ans = 10**10
-i = 0
-while r-l > 1:
-    i += 1
-    if i == 10**6:
-        exit()
-    mid = (l+r) // 2
-    if ng_ok(mid):
-        ans = min(ans, mid)
-        r = mid
-    else:
-        l = mid
-
-print(r)
+print(ng_ok(1))
