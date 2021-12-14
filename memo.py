@@ -1,32 +1,44 @@
-from bisect import bisect_left, bisect_right
+from collections import Counter
 n = int(input())
-alst = [*map(int, input().split())]
-blst = [*map(int, input().split())]
-L = []
-for i in range(n):
-    L.append(alst[i], blst[i])
-L.sort()
-lst = [d[1] for d in L]
-
-bit = [0] * (n+1) # これまでの数字がどんなふうになっているのかをメモるためのBIT
-
-def add(x, w):
-    while x <= n:
-        bit[x] += w
-        x += x & -x
-
-def sum(x):
-    ret = 0
-    while x > 0:
-        ret += bit[x]
-        x -= x & -x
-    return ret
+lst = [int(x)-(i+1) for i,x in enumerate(input().split())]
 
 ans = 0
-
-# 転倒数
-for i in range(n):
-    ans += i - sum(lst[i])
-    add(lst[i], 1)
-
-print(ans)
+mn = min(lst)
+mx = max(lst)
+print(lst)
+if mn > 0:
+    cnt = 0
+    for d in lst:
+        if d == mn:
+            cnt += 1
+    print(sum(lst)-mn*cnt)
+elif mx < 0:
+    cnt = 0
+    for d in lst:
+        if d == mx:
+            cnt += 1
+    print(cnt*mx - sum(lst))
+elif mn == 0:
+    c = Counter(lst)
+    mx_num = -1
+    for d in c:
+        if c[d] > len(lst)//2:
+            mx_num = d
+            break
+    if mx_num == -1:
+        print(sum(lst))
+    else:
+        print(sum(lst)-mx_num*len(lst))
+elif mx == 0:
+    c = Counter(lst)
+    mx_num = 1
+    for d in c:
+        if c[d] > len(lst)//2:
+            mx_num = d
+            break
+    if mx_num == 1:
+        print(-sum(lst))
+    else:
+        print(abs(mx_num*len(lst) - sum(lst)))
+else:
+    print(sum([abs(i) for i in lst]))
