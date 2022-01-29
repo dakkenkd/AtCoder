@@ -1,48 +1,40 @@
-from heapq import *
-import sys
-sys.setrecursionlimit(10**6)
-def root(x):
-    if par[x] < 0:
-        return x
-    else:
-        par[x] = root(par[x])
-        return par[x]
+n = int(input())
+lst = [*map(int, input().split())]
 
-def union(x, y):
-    xx = root(x)
-    yy = root(y)
-    if xx == yy:
-        return
-    else:
-        par[xx] += par[yy]
-        par[yy] = xx
+def is_ok_mean(x):
+    use = 0
+    nouse = 0
+    L = [d-x for d in lst]
+    for i in range(n):
+        use, nouse = max(use, nouse) + L[i], use
+    return max(use, nouse) >= 0
 
-def same(x, y):
-    xx = root(x)
-    yy = root(y)
-    return xx == yy
+def is_ok_median(x):
+    use = 0
+    nouse = 0
+    L = [[-1,1][d>=x] for d in lst]
+    for i in range(n):
+        use, nouse = max(use, nouse) + L[i], use
+    return max(use, nouse) >= 0
 
-n, m, q = map(int, input().split())
-edges = []
-for i in range(m):
-    a,b,c = map(int, input().split())
-    heappush(edges, (c, a-1, b-1, i, 0))
-for i in range(q):
-    u, v, w = map(int, input().split())
-    heappush(edges, (w, u-1, v-1, i, 1))
+def solve_mean():
+    ng, ok = 0, 10**10
+    for i in range(100):
+        mid = (ng+ok)/2
+        if is_ok_mean(mid):
+            ng = mid
+        else:
+            ok = mid
+    return ok
 
-par = [-1] * n
-ans = [-1] * m
-while edges:
-    c, a, b, i, flag = heappop(edges)
-    print(flag, i, par)
-    if flag and not same(a, b):
-        ans[i] = 1
-        continue
-    if not same(a, b):
-        union(a, b)
-for d in ans:
-    if d:
-        print("Yes")
-    else:
-        print("No")
+def solve_median():
+    ng, ok = 0, 10**10
+    while True:
+        mid = (ng+ok)//2
+        if is_ok_median(mid):
+            ng = mid
+        else:
+            ok = mid
+    return ok
+
+print(solve_mean(), solve_median())
