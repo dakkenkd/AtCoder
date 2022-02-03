@@ -9,7 +9,7 @@ for _ in range(m):
     g[a].append((c, b))
     g[b].append((c, a))
 
-hq = [(-1, 0)]
+hq = [(0, 0)]
 dist = [float("inf")] * n
 path = [-1] * n
 dist[0] = 0
