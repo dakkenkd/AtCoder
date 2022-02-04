@@ -1,0 +1,127 @@
+# Your snippets
+#
+# Atom snippets allow you to enter a simple prefix in the editor and hit tab to
+# expand the prefix into a larger code block with templated values.
+#
+# You can create a new snippet in this file by typing "snip" and then hitting
+# tab.
+#
+# An example CoffeeScript snippet to expand log to console.log:
+#
+# '.source.coffee':
+#   'Console log':
+#     'prefix': 'log'
+#     'body': 'console.log $1'
+#
+# Each scope (e.g. '.source.coffee' above) can only be declared once.
+#
+# This file uses CoffeeScript Object Notation (CSON).
+# If you are unfamiliar with CSON, you can read more about it in the
+# Atom Flight Manual:
+# http://flight-manual.atom.io/using-atom/sections/basic-customization/#_cson
+
+'.source.python':
+  'map_input':
+    'prefix': 'mapI'
+    'body':"""
+    map(int, input().split())
+    """
+
+  'import_deque':
+    'prefix': "ideque"
+    'body': "from collections import deque"
+
+  'import_bisect':
+    'prefix': 'ibisect'
+    'body': 'from bisect import bisect_left, bisect_right'
+
+  'union_find':
+    'prefix': 'uf'
+    'body': """
+    import sys
+    sys.setrecursionlimit(10**6)
+    def root(x):
+        if par[x] < 0:
+            return x
+        else:
+            par[x] = root(par[x])
+            return par[x]
+
+    def union(x, y):
+        xx = root(x)
+        yy = root(y)
+        if xx == yy:
+            return
+        else:
+            par[xx] += par[yy]
+            par[yy] = xx
+
+    def same(x, y):
+        xx = root(x)
+        yy = root(y)
+        return xx == yy
+    """
+
+  "gird_bfs":
+    "prefix": "gridBfs"
+    "body": """
+    g = [["." == d for d in input()] for _ in range(h)]
+    q = deque([(0,0)])
+    dist = [[-1]*w for _ in range(h)]
+    dist[0][0] = 0
+    nxt = [(0,1), (1,0), (-1,0), (0,-1)] # 進む方向によって適宜変えること
+    while q:
+        ij = q.popleft()
+        i, j = ij[0], ij[1]
+        for d in nxt:
+            ni, nj = i+d[0], j+d[1]
+            if ni < 0 or ni >= h or nj < 0 or nj >= w: continue
+            if g[ni][nj] == False: continue
+            if dist[ni][nj] == -1:
+                dist[ni][nj] = dist[i][j] + 1
+                q.append((ni,nj)) # 0-1BFSの場合appendleft
+    """
+
+  "itertools_morimori_set":
+    "prefix": "itertools"
+    "body": """
+    from itertools import accumulate, product, permutations, combinations, combinations_with_replacement
+    acc = list(accumlate(lst)) # 累積和
+    L = list(permutations(lst)) # 順列 O(n!)
+    L = list(combination(lst, r)) # 組み合わせ O(nCr)
+    L = list(combinations_with_replacement(lst, r)) # 重複組み合わせ
+    L = list(product(lst, repeat=r)) # 直積 O(n**r)
+    """
+
+  "rotate90":
+    "prefix": "rotate90"
+    "body": """
+    def rotate90(x,y):
+        return -y, x
+    """
+  "rotate":
+    "prefix": "rotate"
+    "body":"""
+    import math
+    def rotate(x, y, theta):
+        # 右回転
+        # theta *= -1
+        xx = x * math.cos(math.radians(theta)) - y * math.sin(math.radians(theta))
+        yy = x * math.sin(math.radians(theta)) + y * math.cos(math.radians(theta))
+        return xx, yy
+    """
+
+  "make_divisors":
+    "prefix": "make_divisors"
+    "body":"""
+    def make_divisors(n):
+        lower_divisors, upper_divisors = [], []
+        i = 1
+        while i**2 <= n:
+            if n % i == 0:
+                lower_divisors.append(i)
+                if i != n//i:
+                    upper_divisors.append(n//i)
+            i += 1
+        return lower_divisors + upper_divisors[::-1]
+    """
