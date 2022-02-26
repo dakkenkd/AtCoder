@@ -1,25 +1,26 @@
-n = int(input())
-lst = [*map(int, input().split())]
-dic1 = {}
-dic2 = {}
-for i in range(0,n,2):
-    if lst[i] in dic1:
-        dic1[lst[i]] += 1
-    else:
-        dic1[lst[i]] = 1
-for i in range(0,n,2):
-    if lst[i] in dic1:
-        dic2[lst[i]] += 1
-    else:
-        dic2[lst[i]] = 1
-lst1 = []
-lst2 = []
-for k in dic1:
-    lst1.append((dic1[k], k))
-for k in dic2:
-    lst2.append((dic2[k], k))
-lst1.sort()
-lst2.sort()
-
-cnt1 = 0
-cn2 = 0
+n, m  = map(int, input().split())
+A = [list(input()) for _ in range(n)]
+B = [list(input()) for _ in range(m)]
+ans = False
+if n == m:
+    for i in range(n):
+        for j in range(n):
+            flag = True
+            if A[i][j] != B[i][j]:
+                flag = False
+    if flag:
+        ans = True
+else:
+    for i in range(n-m):
+        for j in range(n-m):
+            flag = True
+            for ii in range(i, i+m):
+                for jj in range(j, j+m):
+                    if A[ii][jj] != B[ii-i][jj-j]:
+                        flag = False
+            if flag:
+                ans = True
+if ans:
+    print("Yes")
+else:
+    print("No")
