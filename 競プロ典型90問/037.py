@@ -18,19 +18,17 @@ for i in range(1,n+1):
         lower = w - r
         upper = w - l
         while nxt <= w and nxt <= upper:
-            print("upper", deq)
             val = dp[i-1][nxt]
             while len(deq) > 0 and deq[-1][0] <= val:
                 deq.pop()
             deq.append((val, nxt))
             nxt += 1
         while len(deq) > 0 and deq[0][1] < lower:
-            print("lower", deque)
             deq.popleft()
 
         if len(deq) == 0: continue
         dp[i][w] = max(dp[i][w], deq[0][0] + v)
-
+    print(nxt)
 if dp[n][w] < 0:
     print(-1)
 else:
