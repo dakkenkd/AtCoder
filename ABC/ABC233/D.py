@@ -1,9 +1,16 @@
-from itertools import accumulate, product, permutations, combinations, combinations_with_replacement
-from bisect import bisect_left, bisect_right
 n, k = map(int, input().split())
 lst = [*map(int, input().split())]
-acc = list(accumlate(lst)) # 累積和
 
+dic = {0:1}
+acc = 0
 for i in range(n):
-    num = lst[i]
-    if 
+    x = lst[i]
+    acc += x
+    if acc - k  in dic:
+        ans += dic[acc-k]
+    if acc in dic:
+        dic[acc] += 1
+    else:
+        dic[acc] = 1
+
+print(ans)
