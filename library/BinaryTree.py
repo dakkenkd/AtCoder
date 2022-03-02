@@ -1,4 +1,4 @@
-class BinaryTrie:
+class BinaryTree:
 
     def __init__(self, bit_depth):
         self.root = [None, None, 0]  # [0-child, 1-child, count]
