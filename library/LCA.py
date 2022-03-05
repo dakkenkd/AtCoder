@@ -50,19 +50,3 @@ def lca(x, y):
         if parent[x][i] != parent[y][i]:
             x, y = parent[x][i], parent[y][i]
     return parent[x][0]
-
-def dist(x, y): # 2頂点間の距離は 「(それぞれの根からの距離) - (根からLCAの距離) * 2」
-    l = lca(x, y)
-    return dep[x] + dep[y] - 2 * dep[l]
-
-q = int(input())
-for _ in range(q):
-    query = [*map(int, input().split())]
-    k, v = query[0], [v-1 for v in query[1:]]
-    v.sort(key=lambda x: order[x])
-    ans = 0
-    for i in range(k):
-        now = i
-        nxt = (i+1) % k
-        ans += dist(v[now], v[nxt])
-    print(ans // 2)
