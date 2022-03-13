@@ -1,5 +1,6 @@
 import sys
 sys.setrecursionlimit(10**7)
+
 n = int(input())
 g = [[] for _ in range(n)]
 for i in range(n-1):
@@ -12,6 +13,7 @@ dep = [0] * n
 parent = [[-1]*18 for _ in range(n)]
 
 pp = 0
+
 def dfs(x, last=-1):
     global pp
     order[x] = pp # 行き掛け順
@@ -49,15 +51,15 @@ def lca(x, y):
             x, y = parent[x][i], parent[y][i]
     return parent[x][0]
 
-def dist(x, y):
+def dist(x, y): # 2頂点間の距離は 「(それぞれの根からの距離) - (根からLCAの距離) * 2」
     l = lca(x, y)
     return dep[x] + dep[y] - 2 * dep[l]
 
 q = int(input())
 for _ in range(q):
     query = [*map(int, input().split())]
-    k, v = query[0], query[1:]
-    v.sort(ley=lambda x: order[x])
+    k, v = query[0], [v-1 for v in query[1:]]
+    v.sort(key=lambda x: order[x])
     ans = 0
     for i in range(k):
         now = i

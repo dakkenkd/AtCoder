@@ -1,35 +1,33 @@
 from collections import deque
 w, n = map(int, input().split())
-lst = []
+
+dp = [-1] * (w+1)
+dp[0] = 0
+
 for _ in range(n):
-    lst.append(tuple(map(int, input().split())))
+    l, r, v = map(int, input().split())
+    # iv ... dpの区間[i-r, i-l]の最大値を得るためのスライド最大値
+    # ivとは(index, value)を意味してる
+    iv = deque()
 
-INF = 10**18
-dp = [[-INF] * (w+1) for _ in range(n+1)]
-dp[0][0] = 0
+    # スライド最大値の初期化
+    for i in range(w-l, w-r, -1):
+        while iv and iv[-1][-1] <= dp[i]:
+            iv.pop()
+        iv.append((i, dp[i]))
 
-for i in range(1,n+1):
-    l, r, v = lst[i-1]
-    deq = deque() # スライド最大値をとる
-    nxt = 0
-    print("i =", i)
-    for w in range(w+1):
-        dp[i][w] = max(dp[i][w], dp[i-1][w])
-        lower = w - r
-        upper = w - l
-        while nxt <= w and nxt <= upper:
-            val = dp[i-1][nxt]
-            while len(deq) > 0 and deq[-1][0] <= val:
-                deq.pop()
-            deq.append((val, nxt))
-            nxt += 1
-        while len(deq) > 0 and deq[0][1] < lower:
-            deq.popleft()
+    # DP本体
+    for i in range(w, l-1, -1):
+        # スライド最大値に対する処理
+        if iv and iv[0][0] == i-l+1:
+            iv.popleft()
+        if i-r >= 0:
+            while iv and iv[-1][-1] <= dp[i-r]:
+                iv.pop()
+            iv.append((i-r, dp[i-r]))
+        if iv[0][1] == -1: continue
 
-        if len(deq) == 0: continue
-        dp[i][w] = max(dp[i][w], deq[0][0] + v)
-    print(nxt)
-if dp[n][w] < 0:
-    print(-1)
-else:
-    print(dp[n][w])
+        # DP更新
+        dp[i] = max(dp[i], iv[0][1]+v)
+
+print(dp[1])
