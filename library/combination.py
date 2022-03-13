@@ -10,3 +10,10 @@ def cmb(n,r):
     return over // under
 
 a = cmb(n, r)
+
+# modをとりながらのnCr
+def ncr(n, r, mod):
+    ret = 1
+    for i in range(1, r+1):
+        ret = (ret * (n-i+1) * pow(i, mod-2, mod)) % mod
+    return ret
