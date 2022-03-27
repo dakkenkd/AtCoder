@@ -1,6 +1,6 @@
 # Euclidean Algorithm
 def gcd(a,b):
-  r = a % b # a >=b としてあまりを求める 
+  r = a % b # a >=b としてあまりを求める
   return gcd(b, r) if r else b # rがゼロでないのならば、b と r のgcdを返し、rがゼロであればbが最大公約数になる
 
 # Euclidean Algorithm (non-recursive)
@@ -18,5 +18,6 @@ def extgcd(a,b):
   return a, 1, 0
 
 # lcm (least common multiple)
+import math
 def lcm(a,b):
-  return a//gcd(a,b)*b
+  return a//math.gcd(a,b)*b
