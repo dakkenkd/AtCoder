@@ -130,37 +130,39 @@ class SortedMultiset(Generic[T]):
             ans += len(a)
         return ans
 
-s = SortedSet()
+"""
+s = SortedMultiset()
 
-# 中身をみる
+中身をみる
 print(s.a)
 
-# 配列の長さを取得する
+配列の長さを取得する
 l = len(s)
 
-# xがsに含まれているかどうかに関わらずxを追加し、Trueを返す
+xがsに含まれているかどうかに関わらずxを追加し、Trueを返す
 s.add(x)
 
-# xがsに含まれていればxを削除し、Trueを返す。（１つ削除）
+xがsに含まれていればxを削除し、Trueを返す。（１つ削除）
 s.discard(x)
 
-# x未満の最大の要素を返す
+x未満の最大の要素を返す
 s.lt(x)
 
-# x以下
+x以下
 s.le(x)
 
-# x以上
+x以上
 s.gt(x)
 
-# xより大きい
+xより大きい
 s.ge(x)
 
-# したからx番目、上から~x番目の要素を返す。存在しない場合はIndexErrorを返す
+したからx番目、上から~x番目の要素を返す。存在しない場合はIndexErrorを返す
 s[x]
 
-# xより小さい要素の数を返す。xがsに含まれている場合はlist(s).index(x)に相当する。
+xより小さい要素の数を返す。xがsに含まれている場合はlist(s).index(x)に相当する。
 s.index(x)
 
-# x以下の要素の数を返す。
+x以下の要素の数を返す。
 s.index_right(x)
+"""
