@@ -10,7 +10,7 @@ def segfunc(x, y):
 """
 class SegTree:
     def __init__(self, init_val, segfunc, ide_ele):
-        n = len(init_val):
+        n = len(init_val)
         self.segfunc = segfunc
         self.ide_ele = ide_ele
         self.num = 1<<(n-1).bit_length()
