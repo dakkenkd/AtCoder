@@ -15,19 +15,6 @@
 	// 	],
 	// 	"description": "Log output to console"
 	// }
-    "rep(n)": {
-        "prefix": "repn",
-        "body": "for i in range(n):",
-        "description": "n loop"
-    },
-    "lstInput": {
-        "prefix": "lI",
-        "body": "[int(i) for i in input().split()]"
-    },
-    "lst2Input": {
-        "prefix": "l2I",
-        "body": "[[int(i) for i in input().split] for _ in range(n)]"
-    },
     "mapInput": {
         "prefix": "mapInput",
         "body": "map(int, input().split())"
@@ -36,96 +23,117 @@
         "prefix": "iI",
         "body": "int(input())"
     },
-		"import_deque": {
+    "import_deque": {
         "prefix": "ideque",
-				"body":"from collections import deque"
-		},
-		"union_find": {
-				"prefix": "uf",
-				"body": [
-		    "import sys",
-		    "sys.setrecursionlimit(10**6)",
-		    "def root(x):",
-		    "    if par[x] < 0:",
-		    "        return x",
-		    "    else:",
-		    "        par[x] = root(par[x])",
-		    "        return par[x]",
-				"",
-		    "def union(x, y):",
-		    "    xx = root(x)",
-		    "    yy = root(y)",
-		    "    if xx == yy:",
-		    "        return",
-		    "    else:",
-		    "        par[xx] += par[yy]",
-		    "        par[yy] = xx",
-				"",
-		    "def same(x, y):",
-		    "    xx = root(x)",
-		    "    yy = root(y)",
-		    "    return xx == yy"
-		    ]
-		},
-		"grid_bfs": {
+        "body":"from collections import deque"
+    },
+    "union_find": {
+        "prefix": "uf",
+        "body": [
+            "import sys",
+            "sys.setrecursionlimit(10**6)",
+            "def root(x):",
+            "    if par[x] < 0:",
+            "        return x",
+            "    else:",
+            "        par[x] = root(par[x])",
+            "        return par[x]",
+            "",
+            "def union(x, y):",
+            "    xx = root(x)",
+            "    yy = root(y)",
+            "    if xx == yy:",
+            "        return",
+            "    else:",
+            "        par[xx] += par[yy]",
+            "        par[yy] = xx",
+                "",
+            "def same(x, y):",
+            "    xx = root(x)",
+            "    yy = root(y)",
+            "    return xx == yy"
+        ]
+    },
+    "grid_bfs": {
         "prefix": "gridBfs",
         "body": [
-        "from collections import deque",
-        "w, h = map(int, input().split())",
-        "g = [[\".\" == d for d in input()] for _ in range(h)]",
-        "q = deque([(0,0)])",
-        "dist = [[-1]*w for _ in range(h)]",
-        "dist[0][0] = 0",
-        "nxt = [(0,1), (1,0), (-1,0), (0,-1)] # 進む方向によって適宜変えること",
-        "while q:",
-        "    ij = q.popleft()",
-        "    i, j = ij[0], ij[1]",
-        "    for d in nxt:",
-        "        ni, nj = i+d[0], j+d[1]",
-        "        if ni < 0 or ni >= h or nj < 0 or nj >= w: continue",
-        "        if g[ni][nj] == False: continue",
-        "        if dist[ni][nj] == -1:",
-        "            dist[ni][nj] = dist[i][j] + 1",
-        "            q.append((ni,nj)) # 0-1BFSの場合appendleft",
+            "from collections import deque",
+            "w, h = map(int, input().split())",
+            "g = [[\".\" == d for d in input()] for _ in range(h)]",
+            "q = deque([(0,0)])",
+            "dist = [[-1]*w for _ in range(h)]",
+            "dist[0][0] = 0",
+            "nxt = [(0,1), (1,0), (-1,0), (0,-1)] # 進む方向によって適宜変えること",
+            "while q:",
+            "    ij = q.popleft()",
+            "    i, j = ij[0], ij[1]",
+            "    for d in nxt:",
+            "        ni, nj = i+d[0], j+d[1]",
+            "        if ni < 0 or ni >= h or nj < 0 or nj >= w: continue",
+            "        if g[ni][nj] == False: continue",
+            "        if dist[ni][nj] == -1:",
+            "            dist[ni][nj] = dist[i][j] + 1",
+            "            q.append((ni,nj)) # 0-1BFSの場合appendleft",
         ]
-		},
-		"itertools_morimori_set": {
+    },
+    "itertools_morimori_set": {
         "prefix": "itertools",
         "body": [
-        "from itertools import accumulate, product, permutations, combinations, combinations_with_replacement",
-        "acc = list(accumlate(lst)) # 累積和",
-        "L = list(permutations(lst)) # 順列 O(n!)",
-        "L = list(combination(lst, r)) # 組み合わせ O(nCr)",
-        "L = list(combinations_with_replacement(lst, r)) # 重複組み合わせ",
-        "L = list(product(lst, repeat=r)) # 直積 O(n**r)",
+            "from itertools import accumulate, product, permutations, combinations, combinations_with_replacement",
+            "acc = list(accumlate(lst)) # 累積和",
+            "L = list(permutations(lst)) # 順列 O(n!)",
+            "L = list(combination(lst, r)) # 組み合わせ O(nCr)",
+            "L = list(combinations_with_replacement(lst, r)) # 重複組み合わせ",
+            "L = list(product(lst, repeat=r)) # 直積 O(n**r)",
         ]
-		},
-		"rotate": {
-    "prefix": "rotate",
-    "body": [
-        "import math",
-        "def rotate(x, y, theta):",
-        "    # 右回転",
-        "    # theta *= -1",
-        "    xx = x * math.cos(math.radians(theta)) - y * math.sin(math.radians(theta))",
-        "    yy = x * math.sin(math.radians(theta)) + y * math.cos(math.radians(theta))",
-        "    return xx, yy",
-    ]
-		},
-		"make_divisors": {
+    },
+    "rotate": {
+        "prefix": "rotate",
+        "body": [
+            "import math",
+            "def rotate(x, y, theta):",
+            "    # 右回転",
+            "    # theta *= -1",
+            "    xx = x * math.cos(math.radians(theta)) - y * math.sin(math.radians(theta))",
+            "    yy = x * math.sin(math.radians(theta)) + y * math.cos(math.radians(theta))",
+            "    return xx, yy",
+        ]
+    },
+    "make_divisors": {
         "prefix": "make_divisors",
         "body":[
-        "def make_divisors(n):",
-        "    lower_divisors, upper_divisors = [], []",
-        "    i = 1",
-        "    while i**2 <= n:",
-        "        if n % i == 0:",
-        "            lower_divisors.append(i)",
-        "            if i != n//i:",
-        "                upper_divisors.append(n//i)",
-        "        i += 1",
-        "    return lower_divisors + upper_divisors[::-1]",
+            "def make_divisors(n):",
+            "    lower_divisors, upper_divisors = [], []",
+            "    i = 1",
+            "    while i**2 <= n:",
+            "        if n % i == 0:",
+            "            lower_divisors.append(i)",
+            "            if i != n//i:",
+            "                upper_divisors.append(n//i)",
+            "        i += 1",
+            "    return lower_divisors + upper_divisors[::-1]",
         ]
-		}
+    },
+    "import_bisect": {
+        "prefix": "ibisect",
+        "body": [
+            "from bisect import bisect_left, bisect_right"
+        ]
+    },
+    "make_grid": {
+        "prefix": "make_grid",
+        "body": [
+            "H = h + 2",
+            "W = w + 2",
+            "g = [\"#\" * W]",
+            "g.extend(\"#\" + input() + \"#\" for _ in range(h))",
+            "g.append(\"#\" * W)",
+        ],
+    },
+    "alphabets": {
+        "prefix": "alphabet",
+        "body": "alpha = list(\"abcdefghijklmnopqrstuvwxyz\")"
+    }
+    
 
 }
