@@ -165,4 +165,7 @@ s.index(x)
 
 x以下の要素の数を返す。
 s.index_right(x)
+
+sに含まれるxの個数をj返すO(root(N))
+s.count(x)
 """
