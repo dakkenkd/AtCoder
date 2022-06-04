@@ -86,7 +86,7 @@
     "prefix": "itertools"
     "body": """
     from itertools import accumulate, product, permutations, combinations, combinations_with_replacement
-    acc = list(accumulate(lst)) # 累積和
+    acc = list(accumlate(lst)) # 累積和
     L = list(permutations(lst)) # 順列 O(n!)
     L = list(combination(lst, r)) # 組み合わせ O(nCr)
     L = list(combinations_with_replacement(lst, r)) # 重複組み合わせ
@@ -124,4 +124,13 @@
                     upper_divisors.append(n//i)
             i += 1
         return lower_divisors + upper_divisors[::-1]
+    """
+  "decimal":
+    "prefix": "decimal"
+    "body": """
+    from decimal import Decimal
+    def dec(a):
+      return Decimal(str(a))
+    def decsq(a):
+      return Decimal.sqrt(Decimal(a))
     """
