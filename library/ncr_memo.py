@@ -1,16 +1,15 @@
-fac = [0] * (n+1)
-finv = [0] * (n+1)
-inv = [0] * (n+1)
+mod = 998244353
 
-fac[0] = fac[1] = 1
-inv[1] = 1
-finv[0] = finv[1] = 1
-for i in range(2, n+1):
-    fac[i] = fac[i-1] * i % mod
-    inv[i] = mod - mod // i * inv[mod%i] % mod
-    finv[i] = finv[i-1] * inv[i] % mod
-def binom(n, r):
-    if n < r or n < 0 or r < 0:
-        return 0
-    else:
-        return fac[n] * finv[r] % mod * finv[n-r] % mod
+fact = [1] * 220000
+invfact = [1] * 220000
+
+for i in range(1, 220000):
+    fact[i] = fact[i-1] * i % mod
+
+invfact[-1] = pow(fact[-1], mod-2, mod)
+for i in range(220000-1, 0, -1):
+    invfact[i-1] = invfact[i] * i % mod
+
+def nCk(n, k):
+    if k < 0 or n-k < 0: return 0
+    return fact[n] * invfact[n-k] * invfact[k]
