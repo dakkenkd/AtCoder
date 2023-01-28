@@ -53,8 +53,6 @@
         if xx == yy:
             return
         else:
-            if par[xx] > par[yy]:
-                xx, yy = yy, xx
             par[xx] += par[yy]
             par[yy] = xx
 
@@ -62,6 +60,14 @@
         xx = root(x)
         yy = root(y)
         return xx == yy
+
+    def get_all_members():
+        pare_dic = {}
+        for i in range(n):
+            parent = find(i)
+            pare_dic.setdefault(parent, [])
+            pare_dic[parent].append(i)
+        return list(pare_dic)
     """
 
   "gird_bfs":
@@ -88,7 +94,7 @@
     "prefix": "itertools"
     "body": """
     from itertools import accumulate, product, permutations, combinations, combinations_with_replacement
-    acc = list(accumlate(lst)) # 累積和
+    acc = list(accumulate(lst)) # 累積和
     L = list(permutations(lst)) # 順列 O(n!)
     L = list(combination(lst, r)) # 組み合わせ O(nCr)
     L = list(combinations_with_replacement(lst, r)) # 重複組み合わせ
@@ -127,12 +133,38 @@
             i += 1
         return lower_divisors + upper_divisors[::-1]
     """
-  "decimal":
-    "prefix": "decimal"
+
+  "int_input":
+    "prefix": "intI"
+    "body": "int(input())"
+
+  "lru_cache":
+    "prefix": "lru"
     "body": """
-    from decimal import Decimal
-    def dec(a):
-      return Decimal(str(a))
-    def decsq(a):
-      return Decimal.sqrt(Decimal(a))
+    from functools import lru_cache
+    @lru_cache(None)
+    """
+
+  "combination":
+    "prefix": "ncr"
+    "body":"""
+    from operator import mul
+    from functools import reduce
+
+    def cmb(n,r):
+        r = min(n-r,r)
+        if r == 0: return 1
+        over = reduce(mul, range(n, n - r, -1))
+        under = reduce(mul, range(1,r + 1))
+        return over // under
+    """
+  "alphabet":
+    "prefix": "alpha"
+    "body":"""
+    al = 'abcdefghijklmnopqrstuvwxyz'
+    AL = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    al2id = {d:i for i, d in enumerate(al)}
+    id2al = {i:d for d, i in al2id.items()}
+    AL2id = {d:i for i, d in enumerate(AL)}
+    id2AL = {i:d for d, i in AL2id.items()}
     """
