@@ -53,6 +53,8 @@
         if xx == yy:
             return
         else:
+            if par[xx] > par[yy]:
+                xx, yy = yy, xx
             par[xx] += par[yy]
             par[yy] = xx
 
