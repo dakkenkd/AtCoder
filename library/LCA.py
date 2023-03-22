@@ -1,31 +1,24 @@
-import sys
-sys.setrecursionlimit(10**7)
-
 n = int(input())
 g = [[] for _ in range(n)]
 for i in range(n-1):
-    a,b = map(int, input().split())
+    a, b = map(int, input().split())
     g[a-1].append(b-1)
     g[b-1].append(a-1)
 
 order = [0] * n
 dep = [0] * n
 parent = [[-1]*18 for _ in range(n)]
-
+parent[0][0] = -2
 pp = 0
-
-def dfs(x, last=-1):
-    global pp
-    order[x] = pp # 行き掛け順
+q = [0]
+while q:
+    v = q.pop()
+    order[v] = pp
     pp += 1
-    if last != -1:
-        parent[x][0] = last # xの親
-    for to in g[x]:
-        if to == last: continue
-        dep[to] = dep[x] + 1
-        dfs(to, x)
-
-dfs(0)
+    for vv in g[v][::-1]:
+        if parent[vv][0] == -1:
+            parent[vv][0] = v
+            q.append(vv)
 
 # ダブリング
 for i in range(1, 18):
