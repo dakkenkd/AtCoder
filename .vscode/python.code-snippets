@@ -135,7 +135,21 @@
     "alphabets": {
         "prefix": "alphabet",
         "body": "alpha = list(\"abcdefghijklmnopqrstuvwxyz\")"
-    }
+    },
+    "prime_numbers": {
+        "prefix": "prime_numbers",
+        "body": [
+          "def prime_numbers(n):",
+          "    er = [0] * (n+1)",
+          "    for i in range(2, n+1):",
+          "        if er[i] != 0: continue",
+          "        for j in range(i+i, n+1, i):",
+          "            er[j] = 1",
+          "    primes = [i for i in range(2, n+1) if er[i] == 0]",
+          "    return primes"
+        ],
+        "description": ""
+      }
     
 
 }
